@@ -6,7 +6,7 @@
  */
 typedef struct node
 {
-   int *data;
+   int data;
    struct node *left;
    struct node *right;
 }bst_node;
@@ -19,9 +19,9 @@ bst_node *search_data(bst_node *node, int data); //DONE
 bst_node *get_maximum(bst_node *node); // DONE
 bst_node *get_minimum(bst_node *node); // DONE
 void insert(bst_node *node, int data); // DONE
-int *in_order_predecessor(int data);
-int *in_order_successor(int data);
+bst_node *in_order_predecessor(bst_node *node, int data);
+bst_node *in_order_successor(int data);
 int *delete(int data);
-void bst_print(bst_node *node);
+void bst_print(bst_node *node, int level);
 
 #endif
