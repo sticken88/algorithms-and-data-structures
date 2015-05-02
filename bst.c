@@ -1,4 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <errno.h>
 
 #include "bst.h"
@@ -29,19 +31,11 @@ bst_node *create_node(int data)
 {
    bst_node *new_node;
 
-   new_node = (bst_node *)calloc(sizeof(bst_node));
+   new_node = (bst_node *)calloc(1, sizeof(bst_node));
    // check the result of the memory allocation
    if(new_node == NULL){
-     print("Error while trying to allocate memory for a new node..\n");
-     print("[Error]: %s\n", strerror(errno));
-     exit(0);
-   }
-
-   new_node->data = (int *)calloc(sizeof(int));
-   // check the result of the memory allocation
-   if(new_node->data == NULL){
-     print("Error while trying to allocate memory for the data field of a new node..\n");
-     print("[Error]: %s\n", strerror(errno));
+     printf("Error while trying to allocate memory for a new node..\n");
+     printf("[Error]: %s\n", strerror(errno));
      exit(0);
    }
 
@@ -150,7 +144,7 @@ bst_node *get_minimum(bst_node *node)
 {
    // declare the node which will hold the max value
    bst_node *min_node = NULL;
-   
+
    while(node != NULL){
       min_node = node;
       node = node->left;
@@ -185,17 +179,11 @@ bst_node *in_order_predecessor(bst_node *node, int data)
       // if null the node hasn't a left subtree
       if(left_root == NULL){
           // the node
-         return node;
+         return NULL;
       }
 
-      // loop until we reach the last node
-      while(left_root != NULL){
-        predecessor = left_root;
-        // move the pointer
-	      left_root = left_root->right;
-      }    
-      // return the node
-      return predecessor;
+      // the predecessor is the maximum inside the left (sub)tree
+      return get_maximum(left_root);
    }
 
    // recursively visit the left subtree
@@ -205,6 +193,29 @@ bst_node *in_order_predecessor(bst_node *node, int data)
 
    // recursively visit the right subtree
    if(data > node->data){
-      return in_order_predecessor(node->right, data);
+      bst_node *predecessor = in_order_predecessor(node->right, data);
+      if(predecessor == NULL){
+         predecessor = node;
+      }
+      return predecessor;
    }
+}
+
+
+/** \brief Print the BST
+ *
+ * Prints the BST in-order
+ *
+ * @param node: the current note we want to print
+ *
+ */
+void bst_print(bst_node *node, int level){
+   if(node == NULL){
+      return;
+   }
+
+   bst_print(node->left, level+1);
+   printf("[Level %d]: %d\n", level, node->data);
+   bst_print(node->right, level+1);
+
 }
