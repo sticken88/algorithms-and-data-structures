@@ -16,6 +16,8 @@ typedef struct node
 bst_node *create_bst(int data); // DONE
 bst_node *create_node(int data); // DONE
 bst_node *search_data(bst_node *node, int data); //DONE
+bst_node *get_maximum(bst_node *node); // DONE
+bst_node *get_minimum(bst_node *node); // DONE
 void insert(bst_node *node, int data); // DONE
 int *in_order_predecessor(int data);
 int *in_order_successor(int data);
