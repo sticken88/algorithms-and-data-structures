@@ -114,6 +114,52 @@ void insert(bst_node *node, int data)
 }
 
 
+/** \brief Search the node containing the maximum value in a (sub)tree
+ *
+ * Search the node holding the maximum value inside a (sub)tree. Useful when 
+ * implementing functions that return predecessor and successor.
+ *
+ * @param node: the node where to start looking for the maximum
+ * @return max_node: bst_node pointer to the node holding the maximum
+ *
+ */
+bst_node *get_maximum(bst_node *node)
+{
+   // declare the node which will hold the max value
+   bst_node *max_node = NULL;
+
+   while(node != NULL){
+      max_node = node;
+      node = node->right;
+   }
+   // return the result
+   return max_node;
+}
+
+
+/** \brief Search the node containing the minimum value in a (sub)tree
+ *
+ * Search the node holding the minimum value inside a (sub)tree. Useful when 
+ * implementing functions that return predecessor and successor.
+ *
+ * @param node: the node where to start looking for the minimum
+ * @return min_node: bst_node pointer to the node holding the minimum
+ *
+ */
+bst_node *get_minimum(bst_node *node)
+{
+   // declare the node which will hold the max value
+   bst_node *min_node = NULL;
+   
+   while(node != NULL){
+      min_node = node;
+      node = node->left;
+   }
+   // return the result
+   return min_node;
+}
+
+
 /** \brief Look for the in-order predecessor
  *
  * Look for the in-order predecessor of a given node.
@@ -134,16 +180,19 @@ bst_node *in_order_predecessor(bst_node *node, int data)
 
    // found the node, look for its predecessor
    if(data == node->data){
+      // get the root of the left subtree
       bst_node *left_root = node->left;
-      // if null check what to do
+      // if null the node hasn't a left subtree
       if(left_root == NULL){
+          // the node
+         return node;
       }
 
       // loop until we reach the last node
-      while(left_root->right->right != NULL){
-        predecessor = left_root->right;
+      while(left_root != NULL){
+        predecessor = left_root;
         // move the pointer
-	left_root = left_root->right;
+	      left_root = left_root->right;
       }    
       // return the node
       return predecessor;
