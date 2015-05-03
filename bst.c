@@ -253,6 +253,7 @@ void bst_print(bst_node *node, int level){
  *
  * It traverse the tree and compute the in_order predecessor for every node in the tree
  *
+ * @param root: the root of the tree
  * @param node: the current note we want to compute the in_order predecessor of
  *
  */
@@ -277,7 +278,30 @@ void get_predecessors(bst_node *root, bst_node *node)
 }
 
 
-/*void get_predecessors(bst_node *node)
+/** \brief Print the successors of the entire tree
+ *
+ * It traverse the tree and compute the in_order successor for every node in the tree
+ *
+ * @param root: the root of the tree
+ * @param node: the current note we want to compute the in_order successor of
+ *
+ */
+void get_successors(bst_node *root, bst_node *node)
 {
-  
-}*/
+   // doesn't make sense to recurr here
+   if(node->left != NULL){
+      get_successors(root, node->left);
+   }
+
+   bst_node *successor = in_order_successor(root, node->data);
+   if(successor == NULL){
+      printf("Node with value %d doesn't have any successor..\n", node->data);
+   }else{
+      printf("Node with value %d has successor with value %d..\n", node->data, successor->data);
+   }
+
+   // doesn't make sense to recurr here
+   if(node->right != NULL){
+      get_successors(root, node->right);
+   }
+}
