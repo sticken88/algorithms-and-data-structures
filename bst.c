@@ -240,7 +240,7 @@ bst_node *in_order_successor(bst_node *node, int data)
    }
 
    // visit the right (sub)tree
-   if(data < node->data){
+   if(data > node->data){
       return in_order_successor(node->right, data);
    }
 }
