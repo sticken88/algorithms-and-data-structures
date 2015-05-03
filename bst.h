@@ -19,7 +19,8 @@ bst_node *get_minimum(bst_node *node); // DONE
 bst_node *insert(bst_node *node, int data); // DONE
 bst_node *in_order_predecessor(bst_node *node, int data); // DONE
 bst_node *in_order_successor(bst_node *node, int data); // DONE
-void get_predecessors(bst_node *root, bst_node *node);
+void get_predecessors(bst_node *root, bst_node *node); // DONE
+void get_successors(bst_node *root, bst_node *node);
 int *delete(int data);
 void bst_print(bst_node *node, int level); // DONE
 
