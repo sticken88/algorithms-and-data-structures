@@ -163,33 +163,28 @@ bst_node *get_minimum(bst_node *node)
 /** \brief Look for the in-order predecessor
  *
  * Look for the in-order predecessor of a given node.
- * The in-order predecessor of a node is defined as the right most child in the
- * left subtree
+ * The in-order predecessor of a node is defined as the right most child (the maximum) in the
+ * left subtree. If the node doesn't have any child then the predecessor is defined as the first ancestor
+ * whose value is lower than the one in the node we want to find the predecessor of.
  *
  * @param data: the key of the node whose in-order predecessor we are looking for
- * @return node: bst_node pointer to the node
+ * @return predecessor: bst_node pointer to the predecessornode
  *
  */
 bst_node *in_order_predecessor(bst_node *node, int data)
 {
-  bst_node *predecessor = NULL;
-   
    if(node == NULL){
      return NULL;
    }
 
    // found the node, look for its predecessor
    if(data == node->data){
-      // get the root of the left subtree
-      bst_node *left_root = node->left;
-      // if null the node hasn't a left subtree
-      if(left_root == NULL){
-          // the node
+      // if null the node hasn't a left subtree: the predecessor is an ancestor
+      if(node->left == NULL){          
          return NULL;
       }
-
       // the predecessor is the maximum inside the left (sub)tree
-      return get_maximum(left_root);
+      return get_maximum(node->left);
    }
 
    // recursively visit the left subtree
@@ -208,6 +203,49 @@ bst_node *in_order_predecessor(bst_node *node, int data)
 }
 
 
+/** \brief Look for the in-order successor
+ *
+ * Look for the in-order successor of a given node.
+ * The in-order successor of a node is defined as the left most child (the minimum) in the
+ * right subtree. If the node doesn't have any child, the successor is defined as the first ancestor 
+ * whose value is greater than the one in the node we want to find the successor of.
+ *
+ * @param data: the key of the node whose in-order successor we are looking for
+ * @return successor: bst_node pointer to the successor
+ *
+ */
+bst_node *in_order_successor(bst_node *node, int data)
+{
+   if(node == NULL){
+      return NULL;
+   }
+
+   // found it, look for the successor
+   if(data == node->data){
+      // the node doesn't have right children: the successor is an ancestor
+      if(node->right == NULL){
+         return NULL;
+      }
+      // otherwise we look for the minimum
+      return get_minimum(node->right);
+   }
+   // visit the left (sub)tree
+   if(data < node->data){
+      bst_node *successor = in_order_successor(node->left, data);
+      if(successor == NULL){
+         // then the current node is the successor
+         successor = node;
+      }
+      return successor;
+   }
+
+   // visit the right (sub)tree
+   if(data < node->data){
+      return in_order_successor(node->right, data);
+   }
+}
+
+
 /** \brief Print the BST
  *
  * Prints the BST in-order
@@ -219,8 +257,11 @@ void bst_print(bst_node *node, int level){
    if(node == NULL){
       return;
    }
-
+   int i;
    bst_print(node->left, level+1);
+   for(i=0; i<level; i++){
+      printf(" ");
+   }
    printf("[Level %d]: %d\n", level, node->data);
    bst_print(node->right, level+1);
 
