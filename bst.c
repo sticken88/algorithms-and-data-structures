@@ -247,3 +247,37 @@ void bst_print(bst_node *node, int level){
    bst_print(node->right, level+1);
 
 }
+
+
+/** \brief Print the predecessors of the entire tree
+ *
+ * It traverse the tree and compute the in_order predecessor for every node in the tree
+ *
+ * @param node: the current note we want to compute the in_order predecessor of
+ *
+ */
+void get_predecessors(bst_node *root, bst_node *node)
+{
+   // doesn't make sense to recurr here
+   if(node->left != NULL){
+      get_predecessors(root, node->left);
+   }
+
+   bst_node *predecessor = in_order_predecessor(root, node->data);
+   if(predecessor == NULL){
+      printf("Node with value %d doesn't have any predecessor..\n", node->data);
+   }else{
+      printf("Node with value %d has predecessor with value %d..\n", node->data, predecessor->data);
+   }
+
+   // doesn't make sense to recurr here
+   if(node->right != NULL){
+      get_predecessors(root, node->right);
+   }
+}
+
+
+/*void get_predecessors(bst_node *node)
+{
+  
+}*/
