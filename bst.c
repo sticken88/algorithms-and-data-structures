@@ -112,15 +112,12 @@ bst_node *insert(bst_node *node, int data)
  */
 bst_node *get_maximum(bst_node *node)
 {
-   // declare the node which will hold the max value
-   bst_node *max_node = NULL;
-
-   while(node != NULL){
-      max_node = node;
-      node = node->right;
+   //we cannot go further anymore
+   if(node->right == NULL){
+      return node;
    }
-   // return the result
-   return max_node;
+   // go further
+   return get_maximum(node->right);
 }
 
 
@@ -135,15 +132,12 @@ bst_node *get_maximum(bst_node *node)
  */
 bst_node *get_minimum(bst_node *node)
 {
-   // declare the node which will hold the max value
-   bst_node *min_node = NULL;
-
-   while(node != NULL){
-      min_node = node;
-      node = node->left;
+   //we cannot go further anymore
+   if(node->left == NULL){
+      return node;
    }
-   // return the result
-   return min_node;
+   // go further
+   return get_minimum(node->left);
 }
 
 
