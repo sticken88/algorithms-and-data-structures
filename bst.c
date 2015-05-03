@@ -31,7 +31,7 @@ bst_node *create_node(int data)
 {
    bst_node *new_node;
 
-   new_node = (bst_node *)calloc(1, sizeof(bst_node));
+   new_node = (bst_node *)malloc(sizeof(bst_node));
    // check the result of the memory allocation
    if(new_node == NULL){
      printf("Error while trying to allocate memory for a new node..\n");
@@ -87,24 +87,30 @@ bst_node *search_data(bst_node *node, int data)
  *
  * @param node: bst_node pointer to the node starting from we want to search to insert the new node
  * @param data: int holding the value to insert
+ * @return node: the root of the tree
  *
  */
-void insert(bst_node *node, int data)
+bst_node *insert(bst_node *node, int data)
 {
    // no matches, insert it
    if(node == NULL){
-     node = create_node(data);
+      return create_node(data);
    }
 
    // recursively visit the left subtree
    if(data < node->data){
-      insert(node->left, data);
+      //printf("Data: %d, new data: %d..\n", node->data, data);
+      node->left = insert(node->left, data);
    }
 
    // recursively visit the right subtree
    if(data > node->data){
-      insert(node->right, data);
+    //printf("Data: %d, new data: %d..\n", node->data, data);
+      node->right = insert(node->right, data);      
    }
+
+   // it returns the root eventually
+   return node;
 }
 
 
