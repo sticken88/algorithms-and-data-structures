@@ -6,19 +6,6 @@
 #include "bst.h"
 
 
-/** \brief Create a new BST root node
- *
- * It calls create_node to create the first node of the BST
- *
- * @param data: int holding the value to copy
- * @return BST root node
- *
- */
-bst_node *create_bst(int data)
-{
-   return create_node(data);
-}
-
 /** \brief Create a new generic BST node
  *
  * It allcoates memory for a new node and initializes its content with the parameter
