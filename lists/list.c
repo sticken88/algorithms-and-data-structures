@@ -31,9 +31,9 @@ list_node *create_node(float new_value){
 /*
  * Function that inserts a new value inside the list.
  * It creates a new node and inserts it at the beginning of the list
- * @param: head, the pointer to the head of the list
+ * @param: head, the pointer to the beginning of the list
+ * @param: tail, the pointer to the end of the list
  * @param: new_value, a float containing the new value that must be inserted
- * @return: the updated head pointer
  */
 void insert_node_head(list_node **head, list_node **tail, float new_value){
 
@@ -48,6 +48,29 @@ void insert_node_head(list_node **head, list_node **tail, float new_value){
 
 	new_node->next = *head;
 	*head = new_node;
+}
+
+
+/*
+ * Function that inserts a new value inside the list.
+ * It creates a new node and inserts it at the end of the list
+ * @param: tail, the pointer to the end of the list
+ * @param: new_value, a float containing the new value that must be inserted
+ */
+void insert_node_tail(list_node **head, list_node **tail, float new_value){
+
+	// create the new node
+	list_node *new_node = create_node(new_value);
+
+    // check if this is the first node of the list
+    if(*tail == NULL){
+    	*head = new_node;
+    }else{
+	    (*tail)->next = new_node;
+    }
+
+    // this line it's necessary in both if and else
+    *tail = new_node;
 }
 
 
