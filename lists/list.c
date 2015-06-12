@@ -35,31 +35,29 @@ list_node *create_node(float new_value){
  * @param: new_value, a float containing the new value that must be inserted
  * @return: the updated head pointer
  */
-list_node *insert_node_head(list_node *head, list_node *tail, float new_value){
+void insert_node_head(list_node **head, list_node **tail, float new_value){
 
 	// create the new node
 	list_node *new_node = create_node(new_value);
 
 	// insert it into the list
 	// it's the very first node of the list, so the tail must be initialized properly
-	if(head == NULL){
-		tail = new_node;
+	if(*head == NULL){
+		*tail = new_node;
 	}
 
-	new_node->next = head;
-	head = new_node;
-
-    return head;
+	new_node->next = *head;
+	*head = new_node;
 }
 
 
 /*
  * Function that prints out the content of the list
  */
-void print_list(list_node *node){
-	while(node != NULL){
-		printf("%f\n", node->value);
-		node = node->next;
+void print_list(list_node **node){
+	while(*node != NULL){
+		printf("%f\n", (*node)->value);
+		*node = (*node)->next;
 	}
 }
 
