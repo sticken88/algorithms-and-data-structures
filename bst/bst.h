@@ -4,11 +4,11 @@
 /*
  * BST node struct definition
  */
-typedef struct node
+typedef struct t_node
 {
    int data;
-   struct node *left;
-   struct node *right;
+   struct t_node *left;
+   struct t_node *right;
 }bst_node;
 
 // Functions prototypes
