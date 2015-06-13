@@ -81,18 +81,23 @@ void insert_node_tail(list_node **head, list_node **tail, float new_value){
  */
 void reverse_list(list_node **head, list_node **tail){
 
-	// temporary pointers necessary to reverse the list
-	list_node *tmp, *fh;
-	
-	fh = (*head)->next;
-	(*head)->next = NULL;
+	if(*head == NULL){
+		printf("Empty list, nothing to revert..\n");
+	}else{
+		// temporary pointers necessary to reverse the list
+		list_node *tmp, *fh;
+		// the new tail is the old head
+		*tail = *head;
+		fh = (*head)->next;
+		(*head)->next = NULL;
 
-	while(fh != NULL){
-	  tmp = fh->next;
-	  fh->next = *head;
-	  *head = fh;
-	  fh = tmp;
-	}
+		while(fh != NULL){
+		  tmp = fh->next;
+		  fh->next = *head;
+		  *head = fh;
+		  fh = tmp;
+		}
+    }
 }
 
 
@@ -100,11 +105,15 @@ void reverse_list(list_node **head, list_node **tail){
  * Function that prints out the content of the list
  */
 void print_list(list_node *node){
-	while(node != NULL){
-		printf("%f\n", node->value);
-		node = node->next;
-	}
-	printf("\n");
+	if(node == NULL){
+		printf("Empty list, nothing to print..\n");
+	}else{
+		while(node != NULL){
+			printf("%f\n", node->value);
+			node = node->next;
+		}
+		printf("\n");
+    }
 }
 
 /*
