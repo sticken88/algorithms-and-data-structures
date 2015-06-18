@@ -3,14 +3,23 @@
 
 
 /*
- Linked list struct node definition
+ graph node struct definition
  */
 typedef struct g_node{
-	float value;
+	int value;
     struct g_node *next;
 }graph_node;
 
+/*
+ * graph struct definition
+ */
+typedef struct g{
+	int num_nodes;
+	graph_node **nodes;
+}graph;
 
-graph_node *create_node(float new_value);
+
+graph *graph_init(int nodes);
+graph_node *create_node(int new_value);
 
 #endif
