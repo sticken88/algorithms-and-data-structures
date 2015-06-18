@@ -18,6 +18,8 @@ graph *graph_init(int nodes){
 
     // set the number of nodes
     gr->num_nodes = nodes;
+    // set the initial value of the tail pointer
+    gr->tail = NULL;
 
     // memory allocation for the main list of nodes
     gr->nodes = (graph_node **)malloc(gr->num_nodes * sizeof(graph_node*));
@@ -33,6 +35,28 @@ graph *graph_init(int nodes){
     	if(gr->nodes[i] == NULL){
     		return NULL;
     	}  	
+    }
+
+	return gr;
+}
+
+graph *graph_add_node(graph *gr, int node_index, int new_val){
+
+	graph_node *new_node = create_node(new_value);
+
+    // memory not available
+	if(new_node == NULL){
+		return new_node;
+	}
+
+    // it's the first node of the adjacency list
+	if(gr->nodes[node_index]->tail == NULL){
+		gr->nodes[node_index]->tail = new_node;
+	}else{ // insert in the list
+		// insert at the end
+		gr->nodes[node_index]->tail->next = new_node;
+		// update the tail
+		gr->nodes[node_index]->tail = new_node;
     }
 
 	return gr;
