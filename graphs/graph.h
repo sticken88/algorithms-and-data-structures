@@ -22,6 +22,6 @@ typedef struct g{
 
 graph *graph_init(int nodes); // DONE
 graph_node *create_node(int new_value); // DONE
-graph *graph_add_node(graph *gr, int node_index, int new_val);
+graph *graph_add_node(graph *gr, int node_index, int new_value);
 
 #endif
