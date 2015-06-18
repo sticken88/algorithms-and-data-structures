@@ -31,7 +31,7 @@ graph *graph_init(int nodes){
     	gr->nodes[i] = create_node(-1);
     	// if the new node is NULL, return and exit
     	if(gr->nodes[i] == NULL){
-    		return gr->nodes[i];
+    		return NULL;
     	}  	
     }
 
