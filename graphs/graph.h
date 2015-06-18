@@ -19,7 +19,8 @@ typedef struct g{
 }graph;
 
 
-graph *graph_init(int nodes);
-graph_node *create_node(int new_value);
+graph *graph_init(int nodes); // DONE
+graph_node *create_node(int new_value); // DONE
+void graph_add_node(int node_index, int new_val);
 
 #endif
