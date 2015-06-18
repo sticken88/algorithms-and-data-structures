@@ -40,7 +40,7 @@ graph *graph_init(int nodes){
 	return gr;
 }
 
-graph *graph_add_node(graph *gr, int node_index, int new_val){
+graph *graph_add_node(graph *gr, int node_index, int new_value){
 
 	graph_node *new_node = create_node(new_value);
 
