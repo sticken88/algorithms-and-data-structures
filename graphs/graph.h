@@ -16,11 +16,12 @@ typedef struct g_node{
 typedef struct g{
 	int num_nodes;
 	graph_node **nodes;
+	graph_node *tail;
 }graph;
 
 
 graph *graph_init(int nodes); // DONE
 graph_node *create_node(int new_value); // DONE
-void graph_add_node(int node_index, int new_val);
+graph *graph_add_node(graph *gr, int node_index, int new_val);
 
 #endif
