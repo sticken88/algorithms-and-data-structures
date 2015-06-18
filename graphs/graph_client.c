@@ -20,7 +20,7 @@ int main(int argc, char **argv){
   char line[LEN];
   int i, node_value;
   int num_nodes = 0;
-  graph *gr;
+  graph *gr = NULL;
 
   // open the file
   fpr = open_file(argv[1], "r");
@@ -33,28 +33,35 @@ int main(int argc, char **argv){
   fclose(fpr);
 
   // graph initialization missing!
-  gr = graph_init(num_nodes);
+  //gr = graph_init(num_nodes);
   if(gr == NULL){
      return(1);
   }
 
   // open the file again
-  /*fpr = open_file(argv[1], "r");
+  fpr = open_file(argv[1], "r");
 
-  for(i = 0; i<graph->num_nodes; i++){
-    fgets(line, LEN, fpr);
-    sscanf(line, "%d ", &node_value);
+  for(i = 0; i<gr->num_nodes; i++){
+     fgets(line, LEN, fpr);
+     sscanf(line, "%d ", &node_value);
 
-    gr->nodes[i]->value = node_value;
+     gr->nodes[i]->value = node_value;
 
-    // read all the node adjacent to the current one
-    while(sscanf(line, "%d ", &node_value) != EOF){
-
-    }
-
+     // read all the node adjacent to the current one
+     while(sscanf(line, "%d ", &node_value) != EOF){
+        // insert a new node in the adjency list for the current node
+        if(graph_add_node(i, node_value) == NULL){
+           return(1);
+        }
+     }
   }
 
-  fclose(fpr);*/
+  fclose(fpr);
+
+
+  for(i = 0; i<gr->num_nodes; i++){
+     printf("Node: %d\n", gr->nodes[i]->value);
+  }
 
 
 
