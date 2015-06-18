@@ -54,6 +54,7 @@ void insert_node_head(list_node **head, list_node **tail, float new_value){
 /*
  * Function that inserts a new value inside the list.
  * It creates a new node and inserts it at the end of the list
+ * @param: head, the pointer to the beginning of the lis
  * @param: tail, the pointer to the end of the list
  * @param: new_value, a float containing the new value that must be inserted
  */
@@ -73,6 +74,25 @@ void insert_node_tail(list_node **head, list_node **tail, float new_value){
     *tail = new_node;
 }
 
+
+/*
+ *
+ */
+void insert_node_circular(list_node **head, list_node **tail, float new_value){
+
+	list_node *new_node = create_node(new_value);
+
+    /* in this way the tail is properly initialized and the head is initialized after the
+    *  if statement
+    */
+    if(*head == NULL){
+    	*tail = new_node;
+    }
+
+	new_node->next = *head;
+	*head = new_node;
+	(*tail)->next = *head;
+}
 
 /*
  * Function used to reverse a list
@@ -103,6 +123,7 @@ void reverse_list(list_node **head, list_node **tail){
 
 /*
  * Function that prints out the content of the list
+ * @param node: the head of the list that,ust be printed out
  */
 void print_list(list_node *node){
 	if(node == NULL){
@@ -114,6 +135,14 @@ void print_list(list_node *node){
 		}
 		printf("\n");
     }
+}
+
+void print_circular_list(list_node *node, list_node *tail){
+	while(node != tail->next){
+		printf("%f\n", node->value);
+		node = node->next;
+	}
+
 }
 
 /*
