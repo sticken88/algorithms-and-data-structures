@@ -50,7 +50,8 @@ int main(int argc, char **argv){
      // read all the node adjacent to the current one
      while(sscanf(line, "%d ", &node_value) != EOF){
         // insert a new node in the adjency list for the current node
-        if(graph_add_node(i, node_value) == NULL){
+        gr = graph_add_node(gr, i, node_value);
+        if(gr == NULL){
            return(1);
         }
      }
