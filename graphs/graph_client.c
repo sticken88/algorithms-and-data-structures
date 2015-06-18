@@ -6,11 +6,13 @@
 
 #define LEN 50
 
+FILE *open_file(char *name, char *mode);
+
 int main(int argc, char **argv){
 
   // user didn't specify the input file name containing the graph structure
   if(argc != 2){
-     printf("Usage: ./graph_client <file_name>..");
+     printf("Usage: ./main <file_name>..\n");
      return(1);
   }
 
