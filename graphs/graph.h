@@ -3,12 +3,22 @@
 
 
 /*
+ * list node struct definition
+ */
+typedef struct l_node{
+	int value;
+    struct l_node *next;
+}list_node;
+
+
+/*
  graph node struct definition
  */
 typedef struct g_node{
-	int value;
-    struct g_node *next;
+	list_node *node;
+	list_node *tail;
 }graph_node;
+
 
 /*
  * graph struct definition
@@ -16,12 +26,12 @@ typedef struct g_node{
 typedef struct g{
 	int num_nodes;
 	graph_node **nodes;
-	graph_node *tail;
 }graph;
 
 
 graph *graph_init(int nodes); // DONE
-graph_node *create_node(int new_value); // DONE
+graph_node *create_graph_node(int new_value); // DONE
+list_node *create_list_node(int new_value); // DONE
 graph *graph_add_node(graph *gr, int node_index, int new_value);
 
 #endif
