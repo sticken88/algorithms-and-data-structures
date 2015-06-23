@@ -5,10 +5,10 @@
 
 /*
  * Function that creates a new node to be inserted into tjhe list
- * @param: new_value, a float containing the new value that must be inserted
+ * @param: new_value, a int containing the new value that must be inserted
  * @return: the new created node, if malloc is successful
  */
-list_node *create_node(float new_value){
+list_node *create_node(int new_value){
 
 	// declare the new pointers
 	list_node *new_node;
@@ -23,6 +23,7 @@ list_node *create_node(float new_value){
 	//everything is ok
 	new_node->value = new_value;
 	new_node->next = NULL;
+	new_node->previous = NULL;
 
 	return new_node;
 }
@@ -33,9 +34,9 @@ list_node *create_node(float new_value){
  * It creates a new node and inserts it at the beginning of the list
  * @param: head, the pointer to the beginning of the list
  * @param: tail, the pointer to the end of the list
- * @param: new_value, a float containing the new value that must be inserted
+ * @param: new_value, a int containing the new value that must be inserted
  */
-void insert_node_head(list_node **head, list_node **tail, float new_value){
+void insert_node_head(list_node **head, list_node **tail, int new_value){
 
 	// create the new node
 	list_node *new_node = create_node(new_value);
@@ -56,9 +57,9 @@ void insert_node_head(list_node **head, list_node **tail, float new_value){
  * It creates a new node and inserts it at the end of the list
  * @param: head, the pointer to the beginning of the lis
  * @param: tail, the pointer to the end of the list
- * @param: new_value, a float containing the new value that must be inserted
+ * @param: new_value, a int containing the new value that must be inserted
  */
-void insert_node_tail(list_node **head, list_node **tail, float new_value){
+void insert_node_tail(list_node **head, list_node **tail, int new_value){
 
 	// create the new node
 	list_node *new_node = create_node(new_value);
@@ -78,7 +79,7 @@ void insert_node_tail(list_node **head, list_node **tail, float new_value){
 /*
  *
  */
-void insert_node_circular(list_node **head, list_node **tail, float new_value){
+void insert_node_circular(list_node **head, list_node **tail, int new_value){
 
 	list_node *new_node = create_node(new_value);
 
