@@ -3,13 +3,23 @@
 
 
 /*
- Linked list struct node definition
+ * Linked list struct node definition
  */
 typedef struct l_node{
 	int value;
     struct l_node *next;
     struct l_node *previous;
 }list_node;
+
+
+/*
+ * Queue structure definition
+ */
+typedef struct q{
+	list_node *head;
+	list_node *tail
+	int nodes;
+}queue_t;
 
 
 list_node *create_node(int new_value); // DONE
@@ -23,6 +33,12 @@ void print_list(list_node *node); // DONE
 void print_circular_list(list_node *node, list_node *tail);
 void free_list(list_node **node);
 
-
+/*
+ * Queue function signatures
+ */
+queue_t *queue_create(void);
+void enqueue(int new_value);
+list_node *enqueue(void);
+void queue_destroy(queue_t *);
 
 #endif
