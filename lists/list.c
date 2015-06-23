@@ -181,14 +181,33 @@ void enqueue(queue_t **queue, int new_value){
 	(*queue)->tail->previous = new_node;
 	// now we can properly update the tail of the queue
 	(*queue)->tail = new_node;
+	// update the number of nodes in the queue
+	(*queue)->nodes++;
 }
 
 
 /*
  * Remove a node from the queue
  */
-list_node *dequeue(void){
+list_node *dequeue(queue_t **queue){
 
+	/* check if the queue is empty
+	 * if yes, just return NULL
+	 */
+	if(!(*queue)->nodes){
+		return NULL;
+	}
+
+	// get the head node
+	list_node *_head = (*queue)->head;
+
+	// update the head
+	(*queue)->head = (*queue)->head->previous; 
+	(*queue)->head->next = NULL;
+	// update the number of nodes in the queue
+	(*queue)->nodes--;
+
+	return _head;
 }
 
 void queue_destroy(queue_t *);
