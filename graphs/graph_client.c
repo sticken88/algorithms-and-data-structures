@@ -53,7 +53,6 @@ int main(int argc, char **argv){
 
   //depth_first_search(gr, 0);
   breadth_first_search(gr);
-
  
   return (0);
 }

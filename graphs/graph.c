@@ -4,6 +4,9 @@
 #include "graph.h"
 
 
+/*
+ * Initialize graph structure
+ */
 graph *graph_init(int nodes){
 
 	graph *gr;
@@ -41,6 +44,10 @@ graph *graph_init(int nodes){
 	return gr;
 }
 
+
+/*
+ * Function that adds a new node in the graph
+ */
 graph *graph_add_node(graph *gr, int node_index, int new_value){
 
 	graph_node *new_node = create_graph_node(new_value);
@@ -50,11 +57,13 @@ graph *graph_add_node(graph *gr, int node_index, int new_value){
 		return NULL;
 	}
 
+    // Inserted on top of the list
 	new_node->next = gr->nodes[node_index]->next;
 	gr->nodes[node_index]->next = new_node;
 
 	return gr;
 }
+
 
 /*
  * Function that creates a new node to be inserted into the list
@@ -131,12 +140,12 @@ void breadth_first_search(graph *gr){
 
 
 /*
- * Prints the graph
+ * Prints out the graph
  */
 void print_graph(graph *gr){
 
 	int i;
-	
+
 	for(i=0; i<gr->num_nodes; i++){
 		printf("Node: %d, list: ", gr->nodes[i]->value);
 		graph_node * node = gr->nodes[i]->next;
