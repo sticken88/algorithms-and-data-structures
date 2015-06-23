@@ -40,21 +40,15 @@ graph *graph_init(int nodes){
 
 graph *graph_add_node(graph *gr, int node_index, int new_value){
 
-	list_node *new_node = create_list_node(new_value);
+	graph_node *new_node = create_graph_node(new_value);
 
     // memory not available
 	if(new_node == NULL){
 		return NULL;
 	}
 
-    // it's the first node of the adjacency list
-	if(gr->nodes[node_index]->tail == NULL){
-		gr->nodes[node_index]->tail = new_node;
-	}else{ // insert in the list, at the end
-		gr->nodes[node_index]->tail->next = new_node;
-		// update the tail
-		gr->nodes[node_index]->tail = new_node;
-    }
+	new_node->next = gr->nodes[node_index]->next;
+	gr->nodes[node_index]->next = new_node;
 
 	return gr;
 }
@@ -65,12 +59,6 @@ graph *graph_add_node(graph *gr, int node_index, int new_value){
  * @return: the new created node, if malloc is successful
  */
 graph_node *create_graph_node(int new_value){
-
-    // create the new node of the list
-    list_node *new_list_node = create_list_node(new_value);
-    if(new_list_node == NULL){
-    	return NULL;
-    }
 
 	// declare the new pointers
 	graph_node *new_node;
@@ -83,29 +71,42 @@ graph_node *create_graph_node(int new_value){
 	}
 
 	//everything is ok
-	new_node->node = new_list_node;
-	new_node->tail = NULL;
+	new_node->value = new_value;
+	new_node->visited = 0;
+	new_node->next = NULL;
 
 	return new_node;
 }
 
 
-list_node *create_list_node(int new_value){
+void depth_first_search(graph *gr, int node_index){
 
-	// declare the new pointers
-	list_node *new_node;
-	// allocate memory
-	new_node = (list_node *)malloc(sizeof(*new_node));
-	// check for errors
-	if(new_node == NULL){
-		printf("Error in new node memory allocation..\n");
-		return new_node;
+     graph_node *node = gr->nodes[node_index];
+
+     node->visited = 1;
+     printf("[Val] %d\n", node->value);
+
+	 while(node != NULL){
+	 	// we've never seen this node before, recurr
+	 	if(node->visited == 0){
+	 		depth_first_search(gr, node->value);
+	 	}
+	 	node = node->next;
+	 }
+}
+
+void print_graph(graph *gr){
+
+	int i;
+
+	for(i=0; i<gr->num_nodes; i++){
+		printf("Node: %d, list: ", gr->nodes[i]->value);
+		graph_node * node = gr->nodes[i]->next;
+
+		while(node != NULL){
+			printf("%d ", node->value);
+			node = node->next;
+		}
+		printf("\n");
 	}
-
-	//everything is ok
-	new_node->value = new_value;
-	new_node->next = NULL;
-
-	return new_node;
-
 }
