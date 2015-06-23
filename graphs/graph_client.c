@@ -18,7 +18,7 @@ int main(int argc, char **argv){
 
   FILE *fpr = NULL;
   char line[LEN];
-  int i, j, node_value, edges;
+  int i, j, node_value, edges, list_value;
   int num_nodes = 8;
   graph *gr = NULL;
 
@@ -43,12 +43,12 @@ int main(int argc, char **argv){
   i = 0;
   while(fscanf(fpr, "%d %d", &node_value, &edges) != EOF){
 
-     gr->nodes[i]->node->value = node_value;
-
+     gr->nodes[i]->value = node_value;
+     
      // read all the node adjacent to the current one
      for(j = 0; j<edges; j++){
-        fscanf(fpr, "%d", &node_value);
-        gr = graph_add_node(gr, i, node_value);
+        fscanf(fpr, "%d", &list_value);
+        gr = graph_add_node(gr, i, list_value);
         if(gr == NULL){
            return(1);
         }
@@ -58,10 +58,9 @@ int main(int argc, char **argv){
 
   fclose(fpr);
 
+  //print_graph(gr);
 
-  /*for(i = 0; i<gr->num_nodes; i++){
-     printf("Node: %d\n", gr->nodes[i]->node->value);
-  }*/
+  depth_first_search(gr, 0);
 
  
   return (0);
