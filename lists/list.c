@@ -131,7 +131,7 @@ void print_list(list_node *node){
 		printf("Empty list, nothing to print..\n");
 	}else{
 		while(node != NULL){
-			printf("%f\n", node->value);
+			printf("%d\n", node->value);
 			node = node->next;
 		}
 		printf("\n");
@@ -140,10 +140,9 @@ void print_list(list_node *node){
 
 void print_circular_list(list_node *node, list_node *tail){
 	while(node != tail->next){
-		printf("%f\n", node->value);
+		printf("%d\n", node->value);
 		node = node->next;
 	}
-
 }
 
 /*
@@ -204,16 +203,36 @@ list_node *dequeue(queue_t **queue){
 		return NULL;
 	}
 
-	// get the head node
-	list_node *_head = (*queue)->head;
+    list_node *_head;
 
-	// update the head
+	if((*queue)->nodes == 1){
+		_head = (*queue)->head; 
+		(*queue)->head = (*queue)->tail = NULL;
+		(*queue)->nodes--;
+		return _head;
+	}
+
+	// get the head node
+	_head = (*queue)->head;
+	// update the head	
 	(*queue)->head = (*queue)->head->previous; 
 	(*queue)->head->next = NULL;
 	// update the number of nodes in the queue
 	(*queue)->nodes--;
 
 	return _head;
+}
+
+
+/*
+ * Print the queue
+ */
+void queue_print(queue_t *queue){
+	while(queue->head != NULL){
+		printf("%d ", queue->head->value);
+		queue->head = queue->head->previous;
+	}
+	printf("\n");
 }
 
 void queue_destroy(queue_t *);
