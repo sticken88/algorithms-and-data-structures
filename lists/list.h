@@ -38,7 +38,7 @@ void free_list(list_node **node);
  */
 queue_t *queue_create(void);
 void enqueue(queue_t **queue, int new_value);
-list_node *dequeue(void);
+list_node *dequeue(queue_t **queue);
 void queue_destroy(queue_t *);
 
 #endif
