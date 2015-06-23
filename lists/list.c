@@ -176,9 +176,15 @@ void enqueue(queue_t **queue, int new_value){
 	// first of all a new node must be created, as usual
 	list_node *new_node = create_node(new_value);
 
-	new_node->next = (*queue)->tail;
-	// the old tail must point to the new one thanks to the 'previous' link
-	(*queue)->tail->previous = new_node;
+    // first node of the queue
+	if(!(*queue)->nodes){
+		(*queue)->head = new_node;
+		(*queue)->tail = new_node;
+	}else{
+		new_node->next = (*queue)->tail;
+		// the old tail must point to the new one thanks to the 'previous' link
+		(*queue)->tail->previous = new_node;
+    }
 	// now we can properly update the tail of the queue
 	(*queue)->tail = new_node;
 	// update the number of nodes in the queue
