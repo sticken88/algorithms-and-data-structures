@@ -36,10 +36,10 @@ void free_list(list_node **node);
 /*
  * Queue function signatures
  */
-queue_t *queue_create(void);
-void enqueue(queue_t **queue, int new_value);
-list_node *dequeue(queue_t **queue);
-void queue_print(queue_t *queue);
+queue_t *queue_create(void); // DONE
+void enqueue(queue_t **queue, int new_value); // DONE
+list_node *dequeue(queue_t **queue); // DONE
+void queue_print(queue_t *queue); // DONE
 void queue_destroy(queue_t *queue);
 
 #endif

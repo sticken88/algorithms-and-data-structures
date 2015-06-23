@@ -3,6 +3,7 @@
 
 #include "list.h"
 
+
 /*
  * Function that creates a new node to be inserted into tjhe list
  * @param: new_value, a int containing the new value that must be inserted
@@ -95,6 +96,7 @@ void insert_node_circular(list_node **head, list_node **tail, int new_value){
 	(*tail)->next = *head;
 }
 
+
 /*
  * Function used to reverse a list
  * @param: head, pointer to the beginning of the list
@@ -138,6 +140,10 @@ void print_list(list_node *node){
     }
 }
 
+
+/*
+ * Prints out the circular list
+ */
 void print_circular_list(list_node *node, list_node *tail){
 	while(node != tail->next){
 		printf("%d\n", node->value);
@@ -145,12 +151,13 @@ void print_circular_list(list_node *node, list_node *tail){
 	}
 }
 
+
 /*
  * Queue functions implementation
  */
-
 queue_t *queue_create(void){
-
+    
+    // alloc the memory
 	queue_t *queue = (queue_t *)malloc(sizeof(*queue));
 	// if the queue isn't properly initialized due to memory not available
 	if(!queue){
@@ -236,10 +243,3 @@ void queue_print(queue_t *queue){
 }
 
 void queue_destroy(queue_t *);
-
-/*
-void insert_node();
-void delete_node();
-void reverse_list(list_node *node);
-void sort_list(list_node *node);
-void print_list(list_node *head);*/
