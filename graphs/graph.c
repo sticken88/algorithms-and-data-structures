@@ -19,6 +19,9 @@ graph *graph_init(int nodes){
     // set the number of nodes
     gr->num_nodes = nodes;
 
+    // initialize the queue that will be used to implement breadth-first-search
+    gr->queue = queue_create();
+
     // memory allocation for the main list of nodes
     gr->nodes = (graph_node **)malloc(gr->num_nodes * sizeof(graph_node*));
     if(gr->nodes == NULL){
@@ -79,6 +82,9 @@ graph_node *create_graph_node(int new_value){
 }
 
 
+/*
+ * Graph traversal with a depth-first-search approach
+ */
 void depth_first_search(graph *gr, int node_index){
 
      graph_node *node = gr->nodes[node_index];
@@ -95,10 +101,42 @@ void depth_first_search(graph *gr, int node_index){
 	 }
 }
 
+
+/*
+ * Graph traversal with a breadth-first-search approach
+ */
+void breadth_first_search(graph *gr){
+
+    // insert the first node in the queue
+    enqueue(&(gr->queue), gr->nodes[0]->value);
+    // while the queue has item inside
+	while(gr->queue->nodes){
+		list_node *dequeued = dequeue(&(gr->queue));
+		// print out the dequeued value
+		printf("[Val] %d\n", dequeued->value);
+		// get the value because it will be used like an index to access the array of nodes
+		int index = dequeued->value;
+		// once we dequeue a value from the list we need to mark it as 'visited'
+		gr->nodes[index]->visited = 1;
+
+		// now loop over the adjacency list and insert every value inside the queue
+		graph_node *node = gr->nodes[index]->next;
+		while(node != NULL){
+			// enqueue every value
+			enqueue(&(gr->queue), node->value);
+			node = node->next;
+		}
+	}
+}
+
+
+/*
+ * Prints the graph
+ */
 void print_graph(graph *gr){
 
 	int i;
-
+	
 	for(i=0; i<gr->num_nodes; i++){
 		printf("Node: %d, list: ", gr->nodes[i]->value);
 		graph_node * node = gr->nodes[i]->next;
