@@ -17,7 +17,7 @@ typedef struct l_node{
  */
 typedef struct q{
 	list_node *head;
-	list_node *tail
+	list_node *tail;
 	int nodes;
 }queue_t;
 
@@ -39,6 +39,7 @@ void free_list(list_node **node);
 queue_t *queue_create(void);
 void enqueue(queue_t **queue, int new_value);
 list_node *dequeue(queue_t **queue);
-void queue_destroy(queue_t *);
+void queue_print(queue_t *queue);
+void queue_destroy(queue_t *queue);
 
 #endif
