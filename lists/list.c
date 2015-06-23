@@ -147,6 +147,53 @@ void print_circular_list(list_node *node, list_node *tail){
 }
 
 /*
+ * Queue functions implementation
+ */
+
+queue_t *queue_create(void){
+
+	queue_t *queue = (queue_t *)malloc(sizeof(*queue));
+	// if the queue isn't properly initialized due to memory not available
+	if(!queue){
+		return queue;
+	}
+
+	//initialize the internal fields
+	queue->head = NULL;
+	queue->tail = NULL;
+	queue->nodes = 0;
+}
+
+
+/*
+ * Insert a new node inside the queue
+ * First of all we create a new node, then we make it point to the current tail.
+ * The current tail has to point to the new created node by using the 'previous' link
+ * At the end the tail is updated with the new inserted node
+ */
+void enqueue(queue_t **queue, int new_value){
+
+	// first of all a new node must be created, as usual
+	list_node *new_node = create_node(new_value);
+
+	new_node->next = (*queue)->tail;
+	// the old tail must point to the new one thanks to the 'previous' link
+	(*queue)->tail->previous = new_node;
+	// now we can properly update the tail of the queue
+	(*queue)->tail = new_node;
+}
+
+
+/*
+ * Remove a node from the queue
+ */
+list_node *dequeue(void){
+
+}
+
+void queue_destroy(queue_t *);
+
+/*
 void insert_node();
 void delete_node();
 void reverse_list(list_node *node);
