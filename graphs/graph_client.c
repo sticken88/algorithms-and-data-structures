@@ -22,15 +22,6 @@ int main(int argc, char **argv){
   int num_nodes = 8;
   graph *gr = NULL;
 
-  // open the file
-  /*fpr = open_file(argv[1], "r");
-  
-  // just count the number of rows and, hence, the number of nodes of the graph
-  while(fgets(line, LEN, fpr) != NULL){
-    num_nodes++;
-  }
-
-  fclose(fpr);*/
 
   // graph initialization
   gr = graph_init(num_nodes);
@@ -60,7 +51,8 @@ int main(int argc, char **argv){
 
   //print_graph(gr);
 
-  depth_first_search(gr, 0);
+  //depth_first_search(gr, 0);
+  breadth_first_search(gr);
 
  
   return (0);
