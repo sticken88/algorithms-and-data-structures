@@ -37,8 +37,8 @@ void free_list(list_node **node);
  * Queue function signatures
  */
 queue_t *queue_create(void);
-void enqueue(int new_value);
-list_node *enqueue(void);
+void enqueue(queue_t **queue, int new_value);
+list_node *dequeue(void);
 void queue_destroy(queue_t *);
 
 #endif
