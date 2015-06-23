@@ -13,20 +13,12 @@ typedef struct g_node{
 
 
 /*
- graph node struct definition
- */
-/*typedef struct g_node{
-	list_node *node;
-	list_node *tail;
-}graph_node;*/
-
-
-/*
  * graph struct definition
  */
 typedef struct g{
 	int num_nodes;
 	graph_node **nodes;
+	queue_t *queue;
 }graph;
 
 
