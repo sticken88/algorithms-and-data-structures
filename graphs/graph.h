@@ -1,6 +1,7 @@
 #ifndef __GRAPH_FUNCTIONS__
 #define __GRAPH_FUNCTIONS__
 
+#include "../lists/list.h"
 
 /*
  * graph node struct definition
@@ -13,7 +14,7 @@ typedef struct g_node{
 
 
 /*
- * graph struct definition
+ * Graph struct definition
  */
 typedef struct g{
 	int num_nodes;
@@ -24,14 +25,13 @@ typedef struct g{
 
 graph *graph_init(int nodes); // DONE
 graph_node *create_graph_node(int new_value); // DONE
-//list_node *create_list_node(int new_value); // DONE
 graph *graph_add_node(graph *gr, int node_index, int new_value); // DONE
+void depth_first_search(graph *gr, int node_index); // DONE
+void breadth_first_search(graph *gr); // DONE
 
-void depth_first_search(graph *gr, int node_index);
-void breadth_first_search(graph *gr);
 void dijkstra(graph *gr);
 void bellman_ford(graph *gr);
 
-void print_graph(graph *gr);
+void print_graph(graph *gr); // DONE
 
 #endif
