@@ -303,11 +303,42 @@ int pop(stack_t **stack){
 		(*stack)->nodes--;
 		//free memory
 		free(node);
+		node = NULL;
 
 		return value;
 	}
 }
 
 
-void stack_print(stack_t *stack);
-void stack_destroy(stack_t *stack);
+/*
+ * It just prints out the stack content
+ */
+void stack_print(stack_t *stack){
+	while(stack->head){
+		printf("[Val]: %d\n", stack->head->value);
+		stack->head = stack->head->next;
+	}
+	printf("\n");
+}
+
+
+/*
+ * It frees the memory requested for the entire stack
+ * It reuses the pop function until the stack is empty
+ */
+void stack_destroy(stack_t **stack){
+
+    // it's just a fictious value. We reuse the pop function defined before
+    int _val;
+    // loop over the stack
+    while((*stack)->nodes){
+    	_val = pop(stack);
+    	printf("POPPED %d\n", _val);
+    }
+    // finally the stack structure is destroyed
+	free(*stack);
+	*stack = NULL;
+
+	// print out this achievement :)
+	printf("Stack destroyed..\n");
+}
