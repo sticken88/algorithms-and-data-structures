@@ -168,6 +168,8 @@ queue_t *queue_create(void){
 	queue->head = NULL;
 	queue->tail = NULL;
 	queue->nodes = 0;
+
+	return queue;
 }
 
 
@@ -207,6 +209,7 @@ list_node *dequeue(queue_t **queue){
 	 * if yes, just return NULL
 	 */
 	if(!(*queue)->nodes){
+		printf("Empty queue..\n");
 		return NULL;
 	}
 
@@ -243,3 +246,68 @@ void queue_print(queue_t *queue){
 }
 
 void queue_destroy(queue_t *);
+
+/*
+ * Stack functions implementation
+ */
+stack_t *stack_create(void){
+
+	//allocate memory for the new structure
+	stack_t *stack = (stack_t *)malloc(sizeof(*stack));
+	// if the stack isn't properly initialized due to memory not available
+	if(!stack){
+		return stack;
+	}
+
+	//initialize the internal fields
+	stack->head = NULL;
+	stack->nodes = 0;
+
+	return stack;
+}
+
+
+/*
+ * Pushing a new value on top of the stack
+ */
+void push(stack_t **stack, int new_value){
+
+	// create the new node to be inserted
+	list_node *new_node = create_node(new_value);
+	if(!new_node)exit(1);
+
+	// insert it
+	new_node->next = (*stack)->head;
+	(*stack)->head = new_node;
+	(*stack)->nodes++;
+}
+
+
+/*
+ * Returns the first element (if any) of the stack
+ */
+int pop(stack_t **stack){
+
+	//check for the number of nodes
+	if(!(*stack)->nodes){
+		printf("Empty stack..\n");
+		return -1;
+	}else{
+		// get the value in the first element
+		list_node *node = (*stack)->head;
+		int value = node->value;
+
+		//update the head
+		(*stack)->head = (*stack)->head->next;
+		// decrease the counter
+		(*stack)->nodes--;
+		//free memory
+		free(node);
+
+		return value;
+	}
+}
+
+
+void stack_print(stack_t *stack);
+void stack_destroy(stack_t *stack);
