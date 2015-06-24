@@ -47,18 +47,18 @@ void free_list(list_node **node);
  */
 queue_t *queue_create(void); // DONE
 void enqueue(queue_t **queue, int new_value); // DONE
-list_node *dequeue(queue_t **queue); // DONE
+int dequeue(queue_t **queue); // DONE
 void queue_print(queue_t *queue); // DONE
-void queue_destroy(queue_t *queue);
+void queue_destroy(queue_t **queue); // DONE
 
 
 /*
  * Stack function signatures
  */
-stack_t *stack_create(void);
-void push(stack_t **stack, int new_value);
-int pop(stack_t **stack);
-void stack_print(stack_t *stack);
-void stack_destroy(stack_t **stack);
+stack_t *stack_create(void); // DONE
+void push(stack_t **stack, int new_value); // DONE
+int pop(stack_t **stack); // DONE
+void stack_print(stack_t *stack); // DONE
+void stack_destroy(stack_t **stack); // DONE
 
 #endif

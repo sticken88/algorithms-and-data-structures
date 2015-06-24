@@ -25,7 +25,8 @@ int main(void){
   }
 
   //stack_print(stack);
-  stack_destroy(&stack);
+  //stack_destroy(&stack);
+  queue_destroy(&queue);
 
   /*printf("Number of nodes: %d \n", stack->nodes);
 

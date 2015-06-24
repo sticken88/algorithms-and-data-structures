@@ -203,34 +203,42 @@ void enqueue(queue_t **queue, int new_value){
 /*
  * Remove a node from the queue
  */
-list_node *dequeue(queue_t **queue){
+int dequeue(queue_t **queue){
 
 	/* check if the queue is empty
 	 * if yes, just return NULL
 	 */
 	if(!(*queue)->nodes){
 		printf("Empty queue..\n");
-		return NULL;
+		return (-1);
 	}
 
-    list_node *_head;
+    int _value;
 
 	if((*queue)->nodes == 1){
-		_head = (*queue)->head; 
+		_value = (*queue)->head->value; 
+		// free memory (just one time because head == tail in this case)
+		free((*queue)->head);
+		// set pointer to NULL
 		(*queue)->head = (*queue)->tail = NULL;
 		(*queue)->nodes--;
-		return _head;
+		return _value;
 	}
 
-	// get the head node
-	_head = (*queue)->head;
+	// get the head node and the value
+	list_node *_head = (*queue)->head;
+	_value = _head->value;
 	// update the head	
 	(*queue)->head = (*queue)->head->previous; 
 	(*queue)->head->next = NULL;
 	// update the number of nodes in the queue
 	(*queue)->nodes--;
 
-	return _head;
+	//free the memory
+	free(_head);
+	_head = NULL;
+
+	return _value;
 }
 
 
@@ -245,7 +253,25 @@ void queue_print(queue_t *queue){
 	printf("\n");
 }
 
-void queue_destroy(queue_t *);
+/*
+ * It destroys the queue by calling dequeue until the queue is empty
+ */
+void queue_destroy(queue_t **queue){
+
+	// fictious value
+	int _val;
+	//loop over the queue and dequeue every value
+	while((*queue)->nodes){
+		_val = dequeue(queue);
+		printf("ESTRATTO: %d\n", _val);
+	}
+    // finally the queue structure is destroyed
+	free(*queue);
+	*queue = NULL;
+
+	// print out this achievement :)
+	printf("Queue destroyed..\n");
+}
 
 /*
  * Stack functions implementation
@@ -291,7 +317,7 @@ int pop(stack_t **stack){
 	//check for the number of nodes
 	if(!(*stack)->nodes){
 		printf("Empty stack..\n");
-		return -1;
+		return (-1);
 	}else{
 		// get the value in the first element
 		list_node *node = (*stack)->head;
