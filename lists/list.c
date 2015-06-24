@@ -332,8 +332,7 @@ void stack_destroy(stack_t **stack){
     int _val;
     // loop over the stack
     while((*stack)->nodes){
-    	_val = pop(stack);
-    	printf("POPPED %d\n", _val);
+    	_val = pop(stack);    	
     }
     // finally the stack structure is destroyed
 	free(*stack);
