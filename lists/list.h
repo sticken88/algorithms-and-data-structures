@@ -59,6 +59,6 @@ stack_t *stack_create(void);
 void push(stack_t **stack, int new_value);
 int pop(stack_t **stack);
 void stack_print(stack_t *stack);
-void stack_destroy(stack_t *stack);
+void stack_destroy(stack_t **stack);
 
 #endif
