@@ -120,16 +120,15 @@ void breadth_first_search(graph *gr){
     enqueue(&(gr->queue), gr->nodes[0]->value);
     // while the queue has item inside
 	while(gr->queue->nodes){
-		list_node *dequeued = dequeue(&(gr->queue));
+		// get the value; it will be used like an index to access the array of nodes
+		int value = dequeue(&(gr->queue));
 		// print out the dequeued value
-		printf("[Val] %d\n", dequeued->value);
-		// get the value because it will be used like an index to access the array of nodes
-		int index = dequeued->value;
+		printf("[Val] %d\n", value);
 		// once we dequeue a value from the list we need to mark it as 'visited'
-		gr->nodes[index]->visited = 1;
-
+		gr->nodes[value]->visited = 1;
+		
 		// now loop over the adjacency list and insert every value inside the queue
-		graph_node *node = gr->nodes[index]->next;
+		graph_node *node = gr->nodes[value]->next;
 		while(node != NULL){
 			// enqueue every value
 			enqueue(&(gr->queue), node->value);
