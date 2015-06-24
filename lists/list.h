@@ -22,6 +22,15 @@ typedef struct q{
 }queue_t;
 
 
+/*
+ * Stack structure definition
+ */
+typedef struct s{
+	list_node *head;
+	int nodes;
+}stack_t;
+
+
 list_node *create_node(int new_value); // DONE
 void insert_node_head(list_node **head, list_node **tail, int new_value); // DONE
 void insert_node_tail(list_node **head, list_node **tail, int new_value); // DONE
@@ -41,5 +50,15 @@ void enqueue(queue_t **queue, int new_value); // DONE
 list_node *dequeue(queue_t **queue); // DONE
 void queue_print(queue_t *queue); // DONE
 void queue_destroy(queue_t *queue);
+
+
+/*
+ * Stack function signatures
+ */
+stack_t *stack_create(void);
+void push(stack_t **stack, int new_value);
+int pop(stack_t **stack);
+void stack_print(stack_t *stack);
+void stack_destroy(stack_t *stack);
 
 #endif
