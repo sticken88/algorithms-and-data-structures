@@ -9,6 +9,7 @@
 typedef struct g_node{
 	int value;
 	int visited;
+	int distance;
     struct g_node *next;
 }graph_node;
 
@@ -29,7 +30,7 @@ graph *graph_add_node(graph *gr, int node_index, int new_value); // DONE
 void depth_first_search(graph *gr, int node_index); // DONE
 void breadth_first_search(graph *gr); // DONE
 
-void dijkstra(graph *gr);
+void dijkstra(graph *gr, int starting);
 void bellman_ford(graph *gr);
 
 void print_graph(graph *gr); // DONE
