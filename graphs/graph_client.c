@@ -18,7 +18,7 @@ int main(int argc, char **argv){
 
   FILE *fpr = NULL;
   char line[LEN];
-  int i, j, node_value, edges, list_value;
+  int i, j, node_value, edges, list_value, weight;
   int num_nodes = 8;
   graph *gr = NULL;
 
@@ -38,8 +38,8 @@ int main(int argc, char **argv){
      
      // read all the node adjacent to the current one
      for(j = 0; j<edges; j++){
-        fscanf(fpr, "%d", &list_value);
-        gr = graph_add_node(gr, i, list_value);
+        fscanf(fpr, "%d %d", &list_value, &weight);
+        gr = graph_add_node(gr, i, list_value, weight);
         if(gr == NULL){
            return(1);
         }
@@ -52,7 +52,12 @@ int main(int argc, char **argv){
   //print_graph(gr);
 
   //depth_first_search(gr, 0);
-  breadth_first_search(gr);
+  //breadth_first_search(gr);
+  dijkstra(gr, 0);
+
+  for(j=0; j<gr->num_nodes; j++){
+    printf("Node: %d\tweight: %d\n", gr->nodes[j]->value, gr->nodes[j]->distance);
+  }
  
   return (0);
 }
