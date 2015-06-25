@@ -263,7 +263,6 @@ void queue_destroy(queue_t **queue){
 	//loop over the queue and dequeue every value
 	while((*queue)->nodes){
 		_val = dequeue(queue);
-		printf("ESTRATTO: %d\n", _val);
 	}
     // finally the queue structure is destroyed
 	free(*queue);
