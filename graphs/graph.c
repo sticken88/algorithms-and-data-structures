@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <limits.h>
 
 #include "graph.h"
 
@@ -34,7 +35,7 @@ graph *graph_init(int nodes){
 
     // for each entry we need to create a node and set the pointer accordingly
     for(i = 0; i<gr->num_nodes; i++){
-    	gr->nodes[i] = create_graph_node(-1);
+    	gr->nodes[i] = create_graph_node(-1, INT_MAX);
     	// if the new node is NULL, return and exit
     	if(gr->nodes[i] == NULL){
     		return NULL;
@@ -48,9 +49,9 @@ graph *graph_init(int nodes){
 /*
  * Function that adds a new node in the graph
  */
-graph *graph_add_node(graph *gr, int node_index, int new_value){
+graph *graph_add_node(graph *gr, int node_index, int new_value, int weight){
 
-	graph_node *new_node = create_graph_node(new_value);
+	graph_node *new_node = create_graph_node(new_value, weight);
 
     // memory not available
 	if(new_node == NULL){
@@ -70,7 +71,7 @@ graph *graph_add_node(graph *gr, int node_index, int new_value){
  * @param: new_value, a int containing the new value that must be inserted
  * @return: the new created node, if malloc is successful
  */
-graph_node *create_graph_node(int new_value){
+graph_node *create_graph_node(int new_value, int weight){
 
 	// declare the new pointers
 	graph_node *new_node;
@@ -85,6 +86,7 @@ graph_node *create_graph_node(int new_value){
 	//everything is ok
 	new_node->value = new_value;
 	new_node->visited = 0;
+	new_node->distance = weight;
 	new_node->next = NULL;
 
 	return new_node;
@@ -154,5 +156,52 @@ void print_graph(graph *gr){
 			node = node->next;
 		}
 		printf("\n");
+	}
+}
+
+
+/*
+ * Visit the graph and prints out a minimum spanning tree
+ */
+void dijkstra(graph *gr, int starting){
+
+	int i, index, dist, val;
+
+	// the distance from 'starting' to itself is 0
+	gr->nodes[starting]->distance = 0;
+
+    // index will be updated afterwards but at the beginning we start from the first node we want
+	index = starting;
+
+	while(!gr->nodes[index]->visited){
+
+        // in this way we're not gonna process it again 
+		gr->nodes[index]->visited = 1;
+
+		// loop over the adjacency list for the current node
+		graph_node *node = gr->nodes[index]->next;
+		while(node != NULL){
+			// get the index
+			val = node->value;
+            /* Relax the distances
+             * If the dist(index, val) is greater than dist(index, index) + weight(index, next node)
+             * then update.
+             * gr->nodes[val]->distance stores the current distance between 'starting' and 'val'
+             */
+			if(gr->nodes[val]->distance > gr->nodes[index]->distance + node->distance){
+				gr->nodes[val]->distance = gr->nodes[index]->distance + node->distance;
+			}
+			node = node->next;
+		}
+
+
+        // detect the index corresponding to the next node to process
+        dist = INT_MAX;
+		for(i=0; i<gr->num_nodes; i++){
+			if((gr->nodes[i]->visited == 0) && (dist > gr->nodes[i]->distance)){
+				index = i;
+				dist = gr->nodes[i]->distance;
+			}
+		}
 	}
 }
