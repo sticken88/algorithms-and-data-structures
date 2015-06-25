@@ -25,8 +25,8 @@ typedef struct g{
 
 
 graph *graph_init(int nodes); // DONE
-graph_node *create_graph_node(int new_value); // DONE
-graph *graph_add_node(graph *gr, int node_index, int new_value); // DONE
+graph_node *create_graph_node(int new_value, int weight); // DONE
+graph *graph_add_node(graph *gr, int node_index, int new_value, int weight); // DONE
 void depth_first_search(graph *gr, int node_index); // DONE
 void breadth_first_search(graph *gr); // DONE
 
